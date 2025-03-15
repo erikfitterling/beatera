@@ -1,0 +1,116 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;700&family=DynaPuff:wght@400;700&display=swap');
+
+/* Farbvariablen für Bright Mode */
+:root {
+  --bg-color: #F2E8CF;
+  --card-color: #386641;
+  --button-color: #6A994E;
+  --button-hover-color: #55873A;
+  --secondary-card: #A7C957;
+  --highlight-color: #BC4749;
+  --text-color: #1E1E1E;
+
+  --font-normal: 'Lexend', sans-serif;
+  --font-header: 'DynaPuff', cursive;
+
+  --radius: 20px;
+  --shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
+
+  --small: 16px;
+  --medium: 24px;
+  --big: 34px;
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --bg-color: #1E1E1E;
+  --card-color: #2A3D2F;
+  --button-color: #5A8B48;
+  --button-hover-color: #4C7938;
+  --secondary-card: #8AA13C;
+  --highlight-color: #E85D5F;
+  --text-color: #EAEAEA;
+}
+
+/* Allgemeine Styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-normal);
+  transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-family: var(--font-header);
+  font-weight: 700;
+}
+
+h1 {
+  font-size: var(--big);
+}
+
+h2 {
+  font-size: var(--medium);
+}
+
+h3 {
+  font-size: var(--small);
+}
+
+input,
+textarea, 
+select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Buttons */
+button {
+  background-color: var(--button-color);
+  color: white;
+  padding: 12px 20px;
+  font-size: var(--medium);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: var(--button-hover-color);
+  transform: scale(1.05);
+}
+
+/* Cards */
+.card {
+  background-color: var(--card-color);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: white;
+}
+
+/* Sekundäre Cards */
+.card.secondary {
+  background-color: var(--secondary-card);
+  color: black;
+}
+
+/* Highlights */
+.highlight {
+  color: var(--highlight-color);
+  font-weight: bold;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
