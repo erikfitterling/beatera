@@ -5,8 +5,8 @@
 :root {
   --bg-color: #F2E8CF;
   --card-color: #386641;
-  --button-color: #6A994E;
-  --button-hover-color: #55873A;
+  --button-color: #55874B;
+  --button-hover-color: #386641;
   --secondary-card: #A7C957;
   --highlight-color: #BC4749;
   --text-color: #1E1E1E;
@@ -26,8 +26,8 @@
 [data-theme="dark"] {
   --bg-color: #1E1E1E;
   --card-color: #2A3D2F;
-  --button-color: #5A8B48;
-  --button-hover-color: #4C7938;
+  --button-color: #55874B;
+  --button-hover-color: #386641;
   --secondary-card: #8AA13C;
   --highlight-color: #E85D5F;
   --text-color: #EAEAEA;
@@ -43,21 +43,18 @@ body {
 }
 
 /* Headings */
-h1, h2, h3 {
+h1 {
   font-family: var(--font-header);
   font-weight: 700;
-}
-
-h1 {
-  font-size: var(--big);
+  font-size: 70px;
 }
 
 h2 {
-  font-size: var(--medium);
+  font-size: var(--big);
 }
 
 h3 {
-  font-size: var(--small);
+  font-size: var(--medium);
 }
 
 input,
@@ -74,17 +71,29 @@ select {
 button {
   background-color: var(--button-color);
   color: white;
-  padding: 12px 20px;
+  padding: 0.5rem;
   font-size: var(--medium);
   border: none;
   border-radius: var(--radius);
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
+  font-family: var(--font-normal);
 }
 
 button:hover {
   background-color: var(--button-hover-color);
   transform: scale(1.05);
+}
+
+.menu-btn {
+  width: 28rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 }
 
 /* Cards */
@@ -102,15 +111,53 @@ button:hover {
   color: black;
 }
 
+.card.primary {
+  background-color: #fff;
+  color: black;
+  border: 1px solid black;
+  box-shadow: #1E1E1E 4px 4px 12px;
+}
+
 /* Highlights */
 .highlight {
   color: var(--highlight-color);
   font-weight: bold;
 }
 
-/* Container */
+/* Container für die gesamte App */
 .container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
+  position: relative;
+  min-height: 100vh;
+  z-index: 1;
+}
+
+/* Grundlegendes Wellenhintergrundbild für kleine Bildschirme */
+.wave-background {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: auto;
+  background-image: url('/beatera_bg_additional.svg'); /* Pfad korrigiert */
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  z-index: -1;
+  pointer-events: none; 
+}
+
+/* Anpassung für Bildschirme mit mehr Höhe */
+@media (min-height: 600px) {
+  .wave-background {
+    height: 450px; 
+    background-size: cover;
+  }
+}
+
+/* Größeres Hintergrundbild für Bildschirme mit Breite über 800px */
+@media (min-width: 800px) {
+  .wave-background {
+    background-image: url('/beatera_bg_additional_big.svg'); /* Größeres Bild */
+  }
 }

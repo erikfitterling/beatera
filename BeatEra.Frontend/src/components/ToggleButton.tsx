@@ -1,12 +1,19 @@
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import React from "react";
 
-const ToggleButton = ({label1, label2} : {label1?: string; label2: string}) => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+interface ToggleButtonProps {
+  labels: {
+    checked?: React.ReactNode;
+    unchecked: React.ReactNode;
+  };
+  isChecked?: boolean;
+  toExecute: () => void; 
+  style?: string; 
+}
 
+const ToggleButton = ({labels, isChecked, toExecute, style = ''}: ToggleButtonProps) => {
   return (
-    <button onClick={toggleTheme}>
-      {theme === "bright" ? label1 : label2}
+    <button className={style} onClick={toExecute}>
+      {isChecked ? labels.checked : labels.unchecked}
     </button>
   );
 };

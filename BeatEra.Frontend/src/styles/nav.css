@@ -1,0 +1,16 @@
+.nav-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.nav-btn {
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+}
+
+.nav-btn:hover {
+    background-color: transparent;
+}

@@ -1,19 +1,36 @@
-import { ThemeProvider } from "./context/ThemeContext";
-import Card from "./components/Card";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import Home from "./pages/Home";
+import JoinGameFriends from "./pages/JoinGameFriends";
+import Navbar from "./components/Navbar";
 import "./styles/styles.css";
-import ToggleButton from "./components/ToggleButton";
+
+const AppContent = () => {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const showSvgWaves = location.pathname === "/" || location.pathname === "/playwithfriends";
+
+  return (
+    <div className="container">
+      <Navbar isHome={isHomePage} />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/playwithfriends" element={<JoinGameFriends />} />
+      </Routes>
+
+      {showSvgWaves && (
+        <div className="wave-background"></div>
+      )}
+
+    </div>
+  );
+};
 
 function App() {
   return (
-    <ThemeProvider>
-      <div className="container">
-        <h1>BeatEra</h1>
-        <ToggleButton label1="🌙" label2="☀️" />
-        <Card title="Erste Karte" content="Dies ist eine Beispielkarte." />
-        <Card title="Sekundäre Karte" content="Eine alternative Karte." variant="secondary" />
-      </div>
-    </ThemeProvider>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
-
 export default App;
