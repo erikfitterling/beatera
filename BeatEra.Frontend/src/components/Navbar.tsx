@@ -1,5 +1,5 @@
 import { UserCheck, SignIn, ArrowLeft, MoonStars, Sun } from "@phosphor-icons/react";
-import { useUserStore } from "../state/User";
+import { useUserStore } from "../state/UserState";
 import ToggleButton from "./ToggleButton";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
