@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const gameSpaces = [
     { id: 1, name: "Alex's Game", players: 3, status: "Playing" },
@@ -13,6 +14,7 @@ const gameSpaces = [
 
 const JoinGameFriends = () => {
     const [initialized, setInitialized] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setInitialized(true);
@@ -49,7 +51,11 @@ const JoinGameFriends = () => {
                 )}
             </div>
 
-            <button style={{margin: "10rem 0 0 0"}} className="menu-btn">Create a Space</button>
+            <button style={{margin: "5rem 0 0 0"}} 
+                    className="menu-btn"
+                    onClick={() => navigate('/createSpace/1')}>
+                Create a Space
+            </button>
         </div>
     );
 };

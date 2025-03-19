@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Space, SpaceSettings } from './models/Space';
+import spaceApi from '../utils/api/spaceApi';
 
-// Define the store state
 interface SpaceState {
     currentSpace: Space | null;
     friendSpaces: Space[];
@@ -20,6 +20,7 @@ const useSpaceStore = create<SpaceState>()(
             friendSpaces: [],
 
             createSpace: () => {
+                // spaceApi.createSpace({ title: "New Space" });
                 set({ currentSpace: new Space("", 0, [], new SpaceSettings) });
             },
 
