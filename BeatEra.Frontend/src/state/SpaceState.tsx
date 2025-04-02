@@ -1,13 +1,15 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Space, SpaceSettings } from './models/Space';
+import { Space } from './models/Space';
 import spaceApi from '../utils/api/spaceApi';
 
 interface SpaceState {
     currentSpace: Space | null;
     friendSpaces: Space[];
+    isLoading: boolean; 
+    error: string | null; 
 
-    createSpace: () => void;
+    createSpace: (title: string) => Promise<{ success: boolean, data?: Space, error?: string }>;
     updateSpace: (space: Space) => void;
     addFriendSpace: (space: Space) => void;
     removeFriendSpace: (spaceId: string) => void;
@@ -18,10 +20,26 @@ const useSpaceStore = create<SpaceState>()(
         (set) => ({
             currentSpace: null,
             friendSpaces: [],
+            isLoading: false,
+            error: null,
 
-            createSpace: () => {
-                // spaceApi.createSpace({ title: "New Space" });
-                set({ currentSpace: new Space("", 0, [], new SpaceSettings) });
+            createSpace: async (title: string) => {
+                try {
+                    set({ isLoading: true, error: null });
+                    const response = await spaceApi.createSpace(title);
+                    set({ 
+                        currentSpace: response.data, 
+                        isLoading: false 
+                    });
+                    return { success: true, data: response.data };
+                } catch (error) {
+                    const errorMessage = error instanceof Error ? error.message : "Fehler beim Erstellen des Space";
+                    set({ 
+                        error: errorMessage, 
+                        isLoading: false 
+                    });
+                    return { success: false, error: errorMessage };
+                }
             },
 
             updateSpace: (space) => {

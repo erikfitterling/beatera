@@ -86,7 +86,7 @@ button:hover {
 }
 
 .menu-btn {
-  width: 100%;
+  width: 70%;
   padding: 0.5rem 2rem;
 }
 
@@ -130,6 +130,21 @@ nav {
   position: relative;
   min-height: 100vh;
   z-index: 1;
+}
+
+.basic-container-r {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.basic-container-c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
 }
 
 /* Grundlegendes Wellenhintergrundbild für kleine Bildschirme */

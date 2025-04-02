@@ -4,7 +4,7 @@ export class CoreApi {
     protected client: AxiosInstance;
     protected baseUrl: string;
 
-    constructor(baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api') {
+    constructor(baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api') {
         this.baseUrl = baseUrl;
         this.client = axios.create({
             baseURL: this.baseUrl,
