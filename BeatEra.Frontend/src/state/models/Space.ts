@@ -1,4 +1,4 @@
-enum SpaceStatus {
+export enum SpaceStatus {
     Waiting,
     Playing,
     Finished,

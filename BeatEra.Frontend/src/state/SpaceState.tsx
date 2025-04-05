@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Space } from './models/Space';
+import { Space, SpaceSettings, SpaceStatus } from './models/Space';
 import spaceApi from '../utils/api/spaceApi';
 
 interface SpaceState {
@@ -26,7 +26,8 @@ const useSpaceStore = create<SpaceState>()(
             createSpace: async (title: string) => {
                 try {
                     set({ isLoading: true, error: null });
-                    const response = await spaceApi.createSpace(title);
+                    // const response = await spaceApi.createSpace(title);
+                    const response = {data: new Space(title, SpaceStatus.Waiting, ["123"], new SpaceSettings(), [])}; // Mock response for testing
                     set({ 
                         currentSpace: response.data, 
                         isLoading: false 

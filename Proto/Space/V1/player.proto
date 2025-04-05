@@ -1,0 +1,11 @@
+sytax = "proto3";
+
+package player.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Player {
+    string id = 1;
+    string name = 2;
+    bool is_connected = 3;
+}

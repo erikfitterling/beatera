@@ -1,0 +1,4 @@
+sytax = "proto3";
+
+package settings.v1;
+

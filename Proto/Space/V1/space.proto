@@ -1,0 +1,23 @@
+sytax = "proto3"
+
+package space.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Space {
+    string id = 1;
+    string title = 2;
+    string description = 3;
+    string owner = 4;
+    string created_at = 5;
+    google.protobuf.Timestamp created_at = 10;
+    google.protobuf.Timestamp updated_at = 11;
+    google.protobuf.Timestamp closed_at = 12;
+    Status status = 13;
+    repeated string participants = 14;
+
+    enum Status {
+        WAITING = 0;
+        PLAYING = 1;
+        FINISHED = 2;
+    }
