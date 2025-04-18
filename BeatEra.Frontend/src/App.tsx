@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 import HomePage from "./pages/HomePage"
 import JoinGameFriendsPage from "./pages/JoinGameFriendsPage"
 import CreateSpacePage from "./pages/CreateSpacePage"
+import GamePage from "./pages/GamePage"
 import Navbar from "./components/Navbar"
 import "./styles/styles.css"
 
@@ -21,6 +22,7 @@ const AppContent = () => {
         <Route path='/' element={<HomePage />} />
         <Route path='/playwithfriends' element={<JoinGameFriendsPage />} />
         <Route path='/createspace/:id' element={<CreateSpacePage />} />
+        <Route path='/game/:id' element={<GamePage />} />
         <Route path='*' element={<div>404</div>} />
       </Routes>
 

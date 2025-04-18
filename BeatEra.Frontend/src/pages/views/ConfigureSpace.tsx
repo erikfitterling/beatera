@@ -65,7 +65,6 @@ const ConfigureSpace: React.FC = () => {
         value={currentSpace?.settings?.timeLimit || 0}
         onChange={(value) => updateSetting('timeLimit', value)}
         min={0}
-        unit="seconds"
       />
     </div>
   );
