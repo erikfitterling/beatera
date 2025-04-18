@@ -1,26 +1,51 @@
-/** @format */
-
-import ListView from "../../components/ListView"
+import { useEffect, useState } from "react"
+import { ListView, ListItemWithMarker } from "../../components/ListView"
+import useSpaceStore from "../../state/SpaceState"
 
 const SelectPlaylistsView = () => {
-  const itemsList = [
-    { id: "1", title: "Erstes Element", marked: false },
-    { id: "2", title: "Zweites Element", marked: false },
-    { id: "3", title: "Drittes Element", marked: false },
-    { id: "4", title: "Viertes Element", marked: false },
-  ]
 
-  const handleItemSelect = (
-    selectedItems: { id: string; title: string; marked: boolean }[]
-  ) => {
-    console.log("Selected items:", selectedItems)
+  const [playLists, setPlaylists] = useState<ListItemWithMarker[]>(
+    [
+      { id: "1", title: "Top Hits", marked: false },
+      { id: "2", title: "Chill Vibes", marked: false },
+      { id: "3", title: "Workout Mix", marked: false },
+      { id: "4", title: "Party Anthems", marked: false },
+      { id: "5", title: "Throwback Classics", marked: false },
+    ]
+  )
+
+  const { currentSpace, updateSpace } = useSpaceStore()
+
+  useEffect(() => {
+    if (currentSpace) {
+      const updatedPlaylists = playLists.map((item) => {
+        return { ...item, marked: currentSpace.playlists.includes(item.id) }
+      })
+      setPlaylists(updatedPlaylists)
+    }
+  }, [currentSpace])
+
+  const onPlaylistMarked = (id: string, marked: boolean) => {
+    if (!currentSpace) return
+
+    const updatedPlaylists = playLists.map((item) => {
+      if (item.id === id) {
+        return { ...item, marked: marked }
+      }
+      return item
+    })
+    setPlaylists(updatedPlaylists)
+    updateSpace({
+      ...currentSpace,
+      playlists: updatedPlaylists.filter((item) => item.marked).map((item) => item.id)
+    })
   }
 
   return (
     <div>
       <h2>Select Playlists</h2>
 
-      <ListView list={itemsList} onItemSelect={handleItemSelect} />
+      <ListView list={playLists} onItemMarked={onPlaylistMarked} />
     </div>
   )
 }

@@ -1,49 +1,60 @@
-import React from 'react';
 import "../styles/styles.css"
+import { ReactNode } from "react";
 
-interface ListItem {
+export interface ListItemWithMarker {
     id: string;
     title: string;
     marked: boolean;
 }
 
-interface ListViewProps {
-    list: ListItem[];
-    onItemSelect: (selectedItems: ListItem[]) => void;
+export interface ListItem {
+    id: string;
+    title: string;
 }
 
-const ListView = ({ list, onItemSelect }: ListViewProps) => {
-    const [selectedItems, setSelectedItems] = React.useState<ListItem[]>(
-        list.filter(item => item.marked)
-    );
+type ListItemType = ListItem | ListItemWithMarker;
 
-    const handleCheckboxChange = (item: ListItem) => {
-        const updatedItems = selectedItems.some(selectedItem => selectedItem.id === item.id)
-            ? selectedItems.filter(selectedItem => selectedItem.id !== item.id)
-            : [...selectedItems, item];
-        
-        setSelectedItems(updatedItems);
-        onItemSelect(updatedItems);
+interface ListViewProps<T extends ListItemType> {
+    list: T[];
+    onItemMarked?: (itemId: string, isMarked: boolean) => void;
+    renderAdditionalContent?: (item: T) => ReactNode;
+}
+
+export function ListView<T extends ListItemType>({ 
+    list, 
+    onItemMarked,
+    renderAdditionalContent 
+}: ListViewProps<T>) {
+    
+    // Hilfsfunktion um zu prüfen ob ein Item vom Typ ListItemWithMarker ist
+    const hasMarker = (item: ListItemType): item is ListItemWithMarker => {
+        return 'marked' in item;
+    };
+
+    const handleCheckboxChange = (item: T, checked: boolean) => {
+        if (onItemMarked) {
+            onItemMarked(item.id, checked);
+        }
     };
 
     return (
         <div>
             <ul className="list-group">
                 {list.map(item => (
-                    <li key={item.id} className="list-group-item">
+                    <li key={item.id} className="list-group-item d-flex align-items-center">
                         <span>{item.title}</span>
-                        <input
-                            type="checkbox"
-                            checked={selectedItems.some(selectedItem => selectedItem.id === item.id)}
-                            onChange={() => handleCheckboxChange(item)}
-                            className="me-3"
-                        />
+                        {renderAdditionalContent && renderAdditionalContent(item)}
+                        {hasMarker(item) && (
+                            <input 
+                                type="checkbox"
+                                className="me-2"
+                                checked={item.marked}
+                                onChange={(e) => handleCheckboxChange(item, e.target.checked)}
+                            />
+                        )}
                     </li>
                 ))}
             </ul>
         </div>
     );
 };
-
-export default ListView;
-

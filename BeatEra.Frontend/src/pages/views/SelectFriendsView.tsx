@@ -1,4 +1,4 @@
-import ListView from "../../components/ListView";
+import {ListView} from "../../components/ListView";
 
 const SelectFriendsView = () => {
     return (
@@ -11,9 +11,9 @@ const SelectFriendsView = () => {
                     { id: "3", title: "Friend 3", marked: false },
                     { id: "4", title: "Friend 4", marked: false },
                 ]}
-                onItemSelect={(selectedItems) => {
-                    console.log("Selected friends:", selectedItems);
-                }}
+                // onItemSelect={(selectedItems) => {
+                //     console.log("Selected friends:", selectedItems);
+                // }}
             />
         </div>
     );

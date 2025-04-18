@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../styles/createSpace.css";
 import SelectPlaylistsView from "./views/SelectPlaylistView";
 import SelectFriendsView from "./views/SelectFriendsView";
+import ConfigureSpace from "./views/ConfigureSpace";
 import { useNavigate } from "react-router-dom";
 
 const CreateSpacePage = () => {
@@ -11,7 +12,7 @@ const CreateSpacePage = () => {
   const views = [
     { component: <SelectPlaylistsView /> },
     { component: <SelectFriendsView /> },
-    { component: <div>View 3</div> },
+    { component: <ConfigureSpace /> },
     { component: <div>View 4</div> } 
   ];
 

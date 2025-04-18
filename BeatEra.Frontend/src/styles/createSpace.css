@@ -3,3 +3,19 @@
     bottom: 3rem;
     z-index: 1000;
 }
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 3rem;
+}
+
+.input-container label{
+    font-size: var(--medium);
+    font-weight: bold;
+}
+
+.settings-container {
+    gap: 2rem;
+}

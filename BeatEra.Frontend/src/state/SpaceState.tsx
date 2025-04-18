@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Space, SpaceSettings, SpaceStatus } from './models/Space';
-import spaceApi from '../utils/api/spaceApi';
+// import spaceApi from '../utils/api/spaceApi';
 
 interface SpaceState {
     currentSpace: Space | null;

@@ -4,6 +4,7 @@ import "../styles/startGame.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import settings from "../utils/static/settings";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useSpaceStore from "../state/SpaceState";
@@ -28,14 +29,13 @@ const JoinGameFriendsPage = () => {
     type: 'success' | 'error' | 'info';
   } | null>(null);
   
-  const { createSpace, isLoading, error } = useSpaceStore();
+  const { currentSpace, createSpace, isLoading, error } = useSpaceStore();
   const navigate = useNavigate();
 
   useEffect(() => {
     setInitialized(true);
   }, []);
 
-  // Wenn ein Fehler im Store auftritt, zeige den Toast an
   useEffect(() => {
     if (error) {
       setToast({
@@ -48,24 +48,26 @@ const JoinGameFriendsPage = () => {
 
   const openCreateSpaceModal = () => {
     setIsModalOpen(true);
-    setSpaceName("New Space"); // Standard-Name
+    setSpaceName("New Space");
   };
 
-  const handleCreateSpace = async () => {
-    if (!spaceName.trim()) return;
-    
+  const openSpace = async () => {
     try {
       setIsModalOpen(false);
-      
+      if (isLoading) return;
+      if (currentSpace !== null) {
+        navigate("/createSpace/" + currentSpace.id);
+        return;
+      }
+
       const result = await createSpace(spaceName);
       
-      if (result && result.success) {
-        navigate("/createSpace/1");
+      if (result.success && result.data) {
+        navigate("/createSpace/" + result.data.id);
       } 
 
     } catch (err) {
       console.error("Fehler beim Erstellen des Space:", err);
-      // Zeige einen Toast mit der Fehlermeldung an
       setToast({
         visible: true,
         message: "Verbindung zum Server fehlgeschlagen. Bitte versuche es später erneut.",
@@ -76,16 +78,6 @@ const JoinGameFriendsPage = () => {
 
   const closeToast = () => {
     setToast(null);
-  };
-
-  var settings = {
-    dots: true,
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "15%",
-    slidesToShow: 1,
-    speed: 500,
   };
 
   return (
@@ -123,10 +115,10 @@ const JoinGameFriendsPage = () => {
       <button
         style={{ margin: "5rem 0 0 0" }}
         className="menu-btn"
-        onClick={openCreateSpaceModal}
+        onClick={currentSpace === null ? openCreateSpaceModal : openSpace}
         disabled={isLoading}
       >
-        Create a Space
+        {currentSpace === null ? "Create a Space" : "Edit your Space"}
       </button>
 
       <NewSpaceModal 
@@ -144,7 +136,7 @@ const JoinGameFriendsPage = () => {
             autoFocus
           />
           <button 
-            onClick={handleCreateSpace}
+            onClick={openSpace}
             disabled={isLoading || !spaceName.trim()}
           >
             {isLoading ? (
